@@ -68,7 +68,6 @@ def encode(fp):
     st = ''.join(arr)
     op.write(bytearray(st, 'utf-8'))
 
-
 def compress(fp):
     dict_size = 256
     contents = fp.read() # chunked into bytes
@@ -89,6 +88,53 @@ def compress(fp):
         print(d, dictionary[d])
     print(result)
     return result
+
+def decode(compressed):
+    dict_size = 256
+    dictionary = {i : chr(i) for i in range(dict_size)}
+    result = StringIO()
+
+    a = compressed.pop(0)
+    b = compressed.pop(0)
+
+    prefix = chr((a << 4) | (b >> 4))
+    leftover = (b & 0x0F)
+    print('initial prefix ', ord(prefix))
+    result.write(prefix)
+    
+    bits = (leftover << 8) # 12 bit word
+    bit_count = 4
+
+    for k in compressed[2:]:
+        i12_flag = False
+        if bit_count == 4:
+            i12 = bits | k
+            bits = 0
+            bit_count = 0
+            print('Value of 12 using 4 remander bits is', i12)
+            i12_flag = True
+        elif bit_count == 8:
+            i12 = bits | (k >> 4)
+            bits = k & 0x0F
+            bit_count = 4
+            print('Value of 12 using 8 remainder bits is', i12)
+            i12_flag = True
+        elif bit_count == 0:
+            bits = (k << 4)
+            bit_count = 8
+            print('Encountered empty bits, storing value', bits)
+        if i12_flag:
+            if i12 in dictionary:
+                entry = dictionary[i12]
+            elif i12 == dict_size:
+                entry = prefix + prefix[0]
+            else:
+                raise ValueError('Bad Compression')
+            result.write(entry)
+            dictionary[dict_size] = prefix + entry[0]
+            dict_size += 1
+            prefix = entry
+    return result.getvalue()
 
 def decompress(compressed):
     dict_size = 256
@@ -111,7 +157,8 @@ def decompress(compressed):
         prefix = entry
     return result.getvalue()
 
-encode(fp)
+#encode(fp)
+print(decode([65, 66, 65, 67, 66]))
 #print(compress(fp))
 
 
