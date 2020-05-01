@@ -1,6 +1,6 @@
 from io import StringIO
 fp = open('rfc3530.txt', 'rb')
-op = open('rfc3530-out', 'wb')
+op = open('rfc3530-out.txt', 'wb')
 
 def write_to_file(code, fptr):
     pass
@@ -46,6 +46,11 @@ def encode(fp):
 
     prefix = chr(contents[0])
     for B in contents[1:]:
+        if dict_size == 4096:
+            dict_size = 256
+            dictionary.clear()
+            dictionary = {chr(i): i for i in range(dict_size)}
+            prefix = ''
         prefixB = prefix + chr(B)
         if prefixB in dictionary:
             prefix = prefixB
