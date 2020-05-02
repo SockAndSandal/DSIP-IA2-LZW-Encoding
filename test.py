@@ -1,6 +1,6 @@
 from io import StringIO
-fp = open('rfc3530.txt', 'rb')
-op = open('rfc3530-out.txt', 'wb')
+fp = open('small.jpg', 'rb')
+op = open('outtxt.txt', 'wb')
 
 def write_to_file(code, fptr):
     pass
@@ -157,8 +157,8 @@ def decompress(compressed):
         prefix = entry
     return result.getvalue()
 
-#encode(fp)
-print(decode([65, 66, 65, 67, 66]))
+encode(fp)
+#print(decode([65, 66, 65, 67, 66]))
 #print(compress(fp))
 
 

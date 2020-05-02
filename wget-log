@@ -1,0 +1,13 @@
+Will not apply HSTS. The HSTS database must be a regular and non-world-writable file.
+ERROR: could not open HSTS store at '/home/arjun/.wget-hsts'. HSTS will be disabled.
+--2020-05-02 05:21:14--  https://i.insider.com/5e32f2a324306a19834af322?width=1100
+Resolving i.insider.com (i.insider.com)... 151.101.154.217
+Connecting to i.insider.com (i.insider.com)|151.101.154.217|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 1094545 (1.0M) [image/png]
+Saving to: ‘5e32f2a324306a19834af322?width=1100’
+
+               5e32f2a324306a   0%[                                                  ]       0  --.-KB/s               5e32f2a324306a19834af322?widt 100%[=================================================>]   1.04M  6.79MB/s    in 0.2s    
+
+2020-05-02 05:21:15 (6.79 MB/s) - ‘5e32f2a324306a19834af322?width=1100’ saved [1094545/1094545]
+
