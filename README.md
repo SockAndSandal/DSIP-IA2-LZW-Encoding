@@ -1,7 +1,5 @@
-# dsip-ia2
-Implementing LZW compression for digital images 
-
-
+# Implementing LZW compression for digital images
+ 
 
 ## test.py
 
